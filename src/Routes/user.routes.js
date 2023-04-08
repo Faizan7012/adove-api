@@ -7,6 +7,9 @@ const userRoute = express.Router();
  // Create a user
 userRoute.post("/",upload.single("img"),createUser);
 
+// get all user 
+userRoute.get('/analytics' , getAllUsers)
+
 // get top 5 liked post
 userRoute.get('/analytics/top_active' , getTopUsers)
 
@@ -22,8 +25,6 @@ userRoute.put('/:id' , updateNameOrBio)
 // delete user by id
 userRoute.delete('/:id' , deleteUser)
 
-// get all user 
-userRoute.get('/analytics' , getAllUsers)
 
 
 
