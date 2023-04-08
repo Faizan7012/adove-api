@@ -1,4 +1,3 @@
-const cloudinary = require("../Utils/cloudinary");
 const userModel = require("../Model/user.model");
 const jwt = require("jsonwebtoken");
 const postModel = require("../Model/post.model");
@@ -12,8 +11,7 @@ const createUser = async (req, res) => {
         res.send({message : 'User already exists with this email or username' , status: false});
       }
       else{
-        const result = await cloudinary.uploader.upload(req.file.path);
-        const newUser = await userModel.create({...payload,img: result.secure_url});
+        const newUser = await userModel.create({...payload});
   
         res.send({message : 'User created successfully' , status: true , user: newUser});
       }

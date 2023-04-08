@@ -1,11 +1,10 @@
 const express = require("express");
 const { createUser, getUserById, updateNameOrBio, deleteUser, getAllUsers, login, getTopUsers } = require("../Controller/user.controller");
-const { upload } = require("../Utils/multer");
 
 const userRoute = express.Router();
 
  // Create a user
-userRoute.post("/",upload.single("img"),createUser);
+userRoute.post("/",createUser);
 
 // get all user 
 userRoute.get('/analytics' , getAllUsers)
