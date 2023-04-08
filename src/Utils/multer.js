@@ -1,6 +1,4 @@
 const multer = require("multer");
-let pd = './uploads'
-console.log(pd)
-const upload = multer({ dest: pd});
+const upload = multer({ dest: 'uploads'});
 
 module.exports = { upload };
