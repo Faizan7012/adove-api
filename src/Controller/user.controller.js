@@ -7,14 +7,14 @@ const createUser = async (req, res) => {
     try {
       const userFind = await userModel.find({ $or: [ { email : payload.email }, { name : payload.name }] })
       if(userFind.length >=1){
-        res.send({message : 'User already exists with this email or username' , status: false});
+        res.status(401).send({message : 'User already exists with this email or username' , status: false});
       }
       else{
         const newUser = await userModel.create({...payload});
-        res.send({message : 'User created successfully' , status: true , user: newUser});
+        res.status(200).send({message : 'User created successfully' , status: true , user: newUser});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -25,13 +25,13 @@ const createUser = async (req, res) => {
     try {
       const userData = await userModel.find({_id : id})
       if(userData.length >=1){
-        res.send({message : 'User finded successfully' , status: true , user : userData[0]});
+        res.status(200).send({message : 'User finded successfully' , status: true , user : userData[0]});
       }
       else{
-      res.send({message : 'User not found' , status: false});
+      res.status(404).send({message : 'User not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -47,13 +47,13 @@ const createUser = async (req, res) => {
             name : req.body.name,
           })
 
-          res.send({message : 'User updated successfully' , status: true });
+          res.status(200).send({message : 'User updated successfully' , status: true });
       }
       else{
-      res.send({message : 'User not found' , status: false});
+      res.status(404).send({message : 'User not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -65,13 +65,13 @@ const createUser = async (req, res) => {
       if(userData.length >=1){
           const updateUser = await userModel.findByIdAndDelete(id)
           await postModel.deleteMany({user_id:id})
-          res.send({message : 'User deleted successfully' , status: true });
+          res.status(200).send({message : 'User deleted successfully' , status: true });
       }
       else{
-      res.send({message : 'User not found' , status: false});
+      res.status(404).send({message : 'User not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -79,9 +79,9 @@ const createUser = async (req, res) => {
     const getAllUsers = async (req, res) => {
       try {
         const userData = await userModel.find()
-        res.send({message : 'All users fetched Successfully' , status: true , user: userData});
+        res.status(200).send({message : 'All users fetched Successfully' , status: true , user: userData});
       } catch (err) {
-        res.send({message : err.message , status: false});
+        res.status(401).send({message : err.message , status: false});
       }
     }
 
@@ -99,9 +99,9 @@ const createUser = async (req, res) => {
              topUsers.push({posts : ele.count , users})
              }
 
-          res.send({message : 'All top actives users data fetched Successfully' , status: true , user: topUsers});
+          res.status(200).send({message : 'All top actives users data fetched Successfully' , status: true , user: topUsers});
         } catch (err) {
-          res.send({message : err.message , status: false});
+          res.status(401).send({message : err.message , status: false});
         }
       }
 

@@ -6,9 +6,9 @@ const createpost = async (req, res) => {
     const payload = req.body;
     try {
         const newpost = await postModel.create({...payload});
-        res.send({message: 'Posted successfully' , status: true})
+        res.status(200).send({message: 'Posted successfully' , status: true})
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -19,13 +19,13 @@ const createpost = async (req, res) => {
     try {
       const postData = await postModel.find({_id : id}).populate('user_id')
       if(postData.length >=1){
-        res.send({message : 'post finded successfully' , status: true , post : postData[0]});
+        res.status(200).send({message : 'post finded successfully' , status: true , post : postData[0]});
       }
       else{
-      res.send({message : 'post not found' , status: false});
+      res.status(404).send({message : 'post not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -40,13 +40,13 @@ const createpost = async (req, res) => {
             content : req.body.content ,
           })
           
-          res.send({message : 'post updated successfully' , status: true });
+          res.status(200).send({message : 'post updated successfully' , status: true });
       }
       else{
-      res.send({message : 'post not found' , status: false});
+      res.status(404).send({message : 'post not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -57,13 +57,13 @@ const createpost = async (req, res) => {
       const postData = await postModel.find({_id : id})
       if(postData.length >=1){
           const updatepost = await postModel.findByIdAndDelete(id)
-          res.send({message : 'post deleted successfully' , status: true });
+          res.status(200).send({message : 'post deleted successfully' , status: true });
       }
       else{
-      res.send({message : 'post not found' , status: false});
+      res.status(404).send({message : 'post not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -77,13 +77,13 @@ const createpost = async (req, res) => {
           const updatepost = await postModel.findByIdAndUpdate(id , {
             likes : postData[0].likes +1
           })
-          res.send({message : 'Post liked by You' , status: true });
+          res.status(200).send({message : 'Post liked by You' , status: true });
       }
       else{
-      res.send({message : 'post not found' , status: false});
+      res.status(404).send({message : 'post not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -97,13 +97,13 @@ const createpost = async (req, res) => {
             likes : postData[0].likes -1
             
           })
-          res.send({message : 'Post unliked by You' , status: true });
+          res.status(200).send({message : 'Post unliked by You' , status: true });
       }
       else{
-      res.send({message : 'post not found' , status: false});
+      res.status(404).send({message : 'post not found' , status: false});
       }
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -111,9 +111,9 @@ const createpost = async (req, res) => {
   const getAllpost = async (req, res) => {
     try {
       const postData = await postModel.find().populate('user_id')
-      res.send({message : 'All post fetched Successfully' , status: true , post: postData});
+      res.status(200).send({message : 'All post fetched Successfully' , status: true , post: postData});
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 
@@ -121,9 +121,9 @@ const createpost = async (req, res) => {
   const getTopPost = async (req, res) => {
     try {
       const postData = await postModel.find().sort({likes:-1}).limit(5).populate('user_id')
-      res.send({message : 'All post fetched Successfully' , status: true , post: postData});
+      res.status(200).send({message : 'All post fetched Successfully' , status: true , post: postData});
     } catch (err) {
-      res.send({message : err.message , status: false});
+      res.status(401).send({message : err.message , status: false});
     }
   }
 

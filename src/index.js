@@ -7,14 +7,14 @@ const { connect } = require("./Config/db");
 const userRoute = require("./Routes/user.routes");
 const postRoute = require("./Routes/post.routes");
 
-const app = express();
+ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/users' , userRoute)
 app.use('/posts' , postRoute)
 
 app.get("/", (req, res) => {
-   res.send('Hello welcome in Adove Test Api Server')
+   res.status(200).send('Hello welcome in Adove Test Api Server')
 });
 
 
@@ -27,3 +27,6 @@ app.listen(process.env.PORT, async () => {
   }
   console.log(`http://localhost:${process.env.PORT}`);
 });
+
+
+module.exports = app

@@ -6,7 +6,7 @@ const postSchema = new Schema(
         ref: "user",
         required: true
     },
-    content: { type: String, required: true },
+    content: { type: String, required: true},
     likes: { type: Number, default: 0 }
   },
   {

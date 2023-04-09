@@ -9,6 +9,7 @@ postRoute.post("/", createpost);
 // get all post
 postRoute.get('/analytics' , getAllpost )
 
+
 // get top 5 liked post
 postRoute.get('/analytics/topliked' , getTopPost)
 
