@@ -39,7 +39,7 @@ const createpost = async (req, res) => {
           const updatepost = await postModel.findByIdAndUpdate(id , {
             content : req.body.content ,
           })
-
+          
           res.send({message : 'post updated successfully' , status: true });
       }
       else{

@@ -43,8 +43,8 @@ const createUser = async (req, res) => {
       const userData = await userModel.find({_id : id})
       if(userData.length >=1){
           const updateUser = await userModel.findByIdAndUpdate(id , {
-            name : req.body.name ,
-            bio : req.body.bio
+            bio : req.body.bio,
+            name : req.body.name,
           })
 
           res.send({message : 'User updated successfully' , status: true });
@@ -64,6 +64,7 @@ const createUser = async (req, res) => {
       const userData = await userModel.find({_id : id})
       if(userData.length >=1){
           const updateUser = await userModel.findByIdAndDelete(id)
+          await postModel.deleteMany({user_id:id})
           res.send({message : 'User deleted successfully' , status: true });
       }
       else{
