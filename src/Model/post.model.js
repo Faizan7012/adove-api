@@ -7,9 +7,7 @@ const postSchema = new Schema(
         required: true
     },
     content: { type: String, required: true },
-    likes: { type: Number, default: 0 },
-    likedby: { type: Array, default: [] },
-
+    likes: { type: Number, default: 0 }
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },

@@ -70,14 +70,12 @@ const createpost = async (req, res) => {
   
   // post like
   const likePost = async(req , res)=>{
-    const {likedby  , likes } = req.body;
     const {id} = req.params;
     try {
       const postData = await postModel.find({_id : id})
       if(postData.length >=1){
           const updatepost = await postModel.findByIdAndUpdate(id , {
-            likedby : likedby , 
-            likes : likes
+            likes : postData[0].likes +1
           })
           res.send({message : 'Post liked by You' , status: true });
       }
@@ -91,14 +89,13 @@ const createpost = async (req, res) => {
 
   // post unlike
   const unlikePost = async(req , res)=>{
-    const {likedby  , likes } = req.body;
     const {id} = req.params;
     try {
       const postData = await postModel.find({_id : id})
       if(postData.length >=1){
           const updatepost = await postModel.findByIdAndUpdate(id , {
-            likedby : likedby , 
-            likes : likes
+            likes : postData[0].likes -1
+            
           })
           res.send({message : 'Post unliked by You' , status: true });
       }

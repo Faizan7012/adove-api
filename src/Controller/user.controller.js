@@ -1,5 +1,4 @@
 const userModel = require("../Model/user.model");
-const jwt = require("jsonwebtoken");
 const postModel = require("../Model/post.model");
 
 // Create User
@@ -12,26 +11,7 @@ const createUser = async (req, res) => {
       }
       else{
         const newUser = await userModel.create({...payload});
-  
         res.send({message : 'User created successfully' , status: true , user: newUser});
-      }
-    } catch (err) {
-      res.send({message : err.message , status: false});
-    }
-  }
-
-
-  //user login
-  const login = async(req , res)=>{
-    const payload = req.body;
-    try {
-      const userFind = await userModel.find({ email : payload.email , password : req.body.password})
-      if(userFind.length >=1){
-      let token = jwt.sign({user_id: userFind[0]._id,email: userFind[0].email,},process.env.key,{ expiresIn: "30d"});
-       res.send({message : 'Login successfull' , user : userFind[0], token})
-      }
-      else{
-        res.send({message : 'Wrong credentials' , status: false});
       }
     } catch (err) {
       res.send({message : err.message , status: false});
@@ -114,7 +94,7 @@ const createUser = async (req, res) => {
           let topUsers = [];
 
             for(let ele of userData){
-             let users = await userModel.findOne({_id : ele._id});
+             let users = await userModel.findOne({_id : ele._id})
              topUsers.push({posts : ele.count , users})
              }
 
@@ -124,4 +104,4 @@ const createUser = async (req, res) => {
         }
       }
 
-  module.exports = {createUser , getUserById , updateNameOrBio , deleteUser ,getAllUsers , login , getTopUsers}
+  module.exports = {createUser , getUserById , updateNameOrBio , deleteUser ,getAllUsers , getTopUsers}

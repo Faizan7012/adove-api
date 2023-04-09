@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser, getUserById, updateNameOrBio, deleteUser, getAllUsers, login, getTopUsers } = require("../Controller/user.controller");
+const { createUser, getUserById, updateNameOrBio, deleteUser, getAllUsers, getTopUsers } = require("../Controller/user.controller");
 
 const userRoute = express.Router();
 
@@ -11,9 +11,6 @@ userRoute.get('/analytics' , getAllUsers)
 
 // get top 5 liked post
 userRoute.get('/analytics/top_active' , getTopUsers)
-
-// user login
-userRoute.post("/login",login);
 
 // Get a user by userId
 userRoute.get('/:id' , getUserById)
